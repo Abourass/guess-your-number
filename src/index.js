@@ -1,6 +1,6 @@
 const inquirer = require('inquirer');
 
-const guessYourNumber = async() => {
+const guessYourNumber = () => {
   const config = {
     low: 0,
     high: 10000001,
@@ -8,7 +8,7 @@ const guessYourNumber = async() => {
     tries: 30
   };
 
-  const chooseANumber = async() => {
+  const chooseANumber = () => {
     inquirer.prompt([{type: 'number', name: 'number', message: `Choose a (whole) number between 1 - ${config.high - 1}`}]).then((answers) => {
       config.number = answers.number;
       console.log('Number to guess is: ', config.number);
@@ -68,6 +68,6 @@ const guessYourNumber = async() => {
     return newGuess
   };
 
-  await chooseANumber();
+  chooseANumber();
 };
 guessYourNumber();
