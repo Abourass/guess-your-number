@@ -3,12 +3,13 @@ const inquirer = require('inquirer');
 const guessYourNumber = async() => {
   const config = {
     low: 0,
-    high: 10000,
-    guesses: []
+    high: 10000001,
+    guesses: [],
+    tries: 30
   };
 
   const chooseANumber = async() => {
-    inquirer.prompt([{type: 'number', name: 'number', message: 'Choose a (whole) number between 1 - 9999'}]).then((answers) => {
+    inquirer.prompt([{type: 'number', name: 'number', message: `Choose a (whole) number between 1 - ${config.high - 1}`}]).then((answers) => {
       config.number = answers.number;
       console.log('Number to guess is: ', config.number);
       makeGuess();
@@ -36,8 +37,8 @@ const guessYourNumber = async() => {
 
   const makeGuess = (response = null) => {
     const middleNumber = Math.floor(config.high / 2);
-    if (config.guesses.length > 30){
-      console.log('Could not guess in 30 guesses');
+    if (config.guesses.length > config.tries){
+      console.log(`Could not guess in ${config.tries} guesses`);
       return console.table(config.guesses);
     }
     if (response == null){ checkGuess(middleNumber) } // First Guess
