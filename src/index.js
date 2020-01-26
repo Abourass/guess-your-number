@@ -3,11 +3,7 @@ const divideAndConquer = require('./classes/divideAndConquer');
 const RandomGuessing = require('./classes/randomGuessing');
 
 const guessYourNumber = () => {
-  const config = {
-    low: 1,
-    high: 10000000,
-    tries: 30
-  };
+  const config = {low: 1, high: 10000000, tries: 30};
 
   inquirer.prompt([{
       type: 'number',
