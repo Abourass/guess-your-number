@@ -37,10 +37,10 @@ class NumberGuesser {
       if (this.guesses.length < this.tries){
         results = this.checkGuess(this.makeGuess())
       } else {
-        return {result: `Failed to guess within ${this.tries} guesses`}; // Check for how many tries you've used
+        return {status: 'fail', tries: this.guesses.length}; // Check for how many tries you've used
       }
     }
-    return results + ` Guessed in ${this.guesses.length} tries!`;
+    return {status: 'win', tries: this.guesses.length};
   }
 }
 module.exports = NumberGuesser;

@@ -1,11 +1,12 @@
 const range = require('../range');
 const NumberGuesser = require('./NumberGuesser');
 
-class randomGuessing extends NumberGuesser {
+class DivideAndRandom extends NumberGuesser {
+  isOdd = num => num % 2 !== 0;
+
   makeGuess = () => {
     if (this.guesses.length > 0 ){
-      const lastGuess = this.guesses[this.guesses.length -1 ],
-        lastRange = this.range;
+      const lastGuess = this.guesses[this.guesses.length -1 ], lastRange = this.range;
       if (lastGuess.response === 'Lower'){
         this.range = [...range(lastRange[0], lastGuess.guess)];
       }
@@ -17,8 +18,12 @@ class randomGuessing extends NumberGuesser {
     if (this.guesses.length === 0){
       newGuess = this.middleNumber();
     } else {
-      while (typeof newGuess !== 'number') {
-        newGuess = this.checkNumberGen(this.range[Math.floor(Math.random() * (this.range.length + 1))]);
+      if (this.isOdd(this.guesses.length)){
+        newGuess = this.middleNumber();
+      } else {
+        while (typeof newGuess !== 'number') {
+          newGuess = this.checkNumberGen(this.range[Math.floor(Math.random() * (this.range.length + 1))]);
+        }
       }
     }
     return newGuess
@@ -34,6 +39,6 @@ class randomGuessing extends NumberGuesser {
     return newGuess
   };
 }
-module.exports = randomGuessing;
+module.exports = DivideAndRandom;
 
 

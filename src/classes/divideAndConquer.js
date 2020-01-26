@@ -1,7 +1,7 @@
 const range = require('../range');
 const NumberGuesser = require('./NumberGuesser');
 
-class divideAndConquer extends NumberGuesser {
+class DivideAndConquer extends NumberGuesser {
   makeGuess = () => {
     if (this.guesses.length > 0 ){
       const lastGuess = this.guesses[this.guesses.length -1 ],
@@ -16,6 +16,6 @@ class divideAndConquer extends NumberGuesser {
     return this.middleNumber()
   };
 }
-module.exports = divideAndConquer;
+module.exports = DivideAndConquer;
 
 
