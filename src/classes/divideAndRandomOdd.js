@@ -1,7 +1,7 @@
 const range = require('../range');
 const NumberGuesser = require('./NumberGuesser');
 
-class DivideAndRandom extends NumberGuesser {
+class DivideAndRandomOdd extends NumberGuesser {
   isOdd = num => num % 2 !== 0;
 
   makeGuess = () => {
@@ -39,6 +39,6 @@ class DivideAndRandom extends NumberGuesser {
     return newGuess
   };
 }
-module.exports = DivideAndRandom;
+module.exports = DivideAndRandomOdd;
 
 
