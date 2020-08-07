@@ -1,7 +1,15 @@
-const range = require('../range');
+import range from '../range';
+import {configInterface} from '../index';
 
 class NumberGuesser {
-  constructor({low, high, targetNumber, tries} = {}){
+  private readonly low: number;
+  private readonly high: number;
+  private readonly targetNumber: number;
+  private readonly tries: number;
+  protected range: number[];
+  protected guesses: any[];
+
+  constructor({low, high, targetNumber, tries}: configInterface){
     this.low = low;
     this.high = high;
     this.targetNumber = targetNumber;
@@ -12,7 +20,7 @@ class NumberGuesser {
 
   middleNumber = () => Math.floor((this.range[0] + this.range[this.range.length - 1]) / 2);
 
-  checkGuess = (guess) => {
+  checkGuess = (guess: number) => {
     let response;
     if (guess > this.targetNumber){
       response = 'Lower';
@@ -29,10 +37,10 @@ class NumberGuesser {
     return response;
   };
 
-  makeGuess = () => {};
+  makeGuess = (): number => 9;
 
-  start = () => {
-    let results = '';
+  start = (): {status: string, tries: number} => {
+    let results: string = '';
     while (results !== 'You Win!'){
       if (this.guesses.length < this.tries){
         results = this.checkGuess(this.makeGuess())
@@ -43,4 +51,4 @@ class NumberGuesser {
     return {status: 'win', tries: this.guesses.length};
   }
 }
-module.exports = NumberGuesser;
+export default NumberGuesser;

@@ -1,20 +1,18 @@
-const range = require('../range');
-const NumberGuesser = require('./NumberGuesser');
+import range from '../range';
+import NumberGuesser from './NumberGuesser';
 
 class DivideAndRandomOdd extends NumberGuesser {
-  isOdd = num => num % 2 !== 0;
+  isOdd = (num: number):boolean => num % 2 !== 0;
 
-  makeGuess = () => {
+  makeGuess = ():number => {
     if (this.guesses.length > 0 ){
-      const lastGuess = this.guesses[this.guesses.length -1 ], lastRange = this.range;
-      if (lastGuess.response === 'Lower'){
-        this.range = [...range(lastRange[0], lastGuess.guess)];
-      }
-      if (lastGuess.response === 'Higher'){
-        this.range = [...range(lastGuess.guess, lastRange[lastRange.length - 1])];
-      }
+      const lastGuess: {response: 'Lower' | 'Higher', guess: number} = this.guesses[this.guesses.length -1];
+      const lastRange: number[] = this.range;
+
+      if (lastGuess.response === 'Lower') this.range = [...range(lastRange[0], lastGuess.guess)];
+      if (lastGuess.response === 'Higher') this.range = [...range(lastGuess.guess, lastRange[lastRange.length - 1])];
     }
-    let newGuess;
+    let newGuess: string | number;
     if (this.guesses.length === 0){
       newGuess = this.middleNumber();
     } else {
@@ -29,8 +27,8 @@ class DivideAndRandomOdd extends NumberGuesser {
     return newGuess
   };
 
-  checkNumberGen = (newGuess) => {
-    for (let i = 0; i < this.guesses.length; i++){
+  checkNumberGen = (newGuess: number): string | number => {
+    for (let i: number = 0; i < this.guesses.length; i++){
       const guessHistory = this.guesses[i];
       if (guessHistory.response === 'Lower' && newGuess > guessHistory.guess){ return 'failed'; }
       if (guessHistory.response === 'Higher' && newGuess < guessHistory.guess){ return 'failed'; }
@@ -39,6 +37,6 @@ class DivideAndRandomOdd extends NumberGuesser {
     return newGuess
   };
 }
-module.exports = DivideAndRandomOdd;
+export default DivideAndRandomOdd;
 
 

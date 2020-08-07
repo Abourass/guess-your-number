@@ -1,20 +1,39 @@
-const DivideAndConquer = require('./classes/divideAndConquer');
-const RandomGuessing = require('./classes/randomGuessing');
-const DivideAndRandomOdd = require('./classes/divideAndRandomOdd');
-const DivideAndRandomEven = require('./classes/divideAndRandomEven');
+import DivideAndConquer from './classes/divideAndConquer'
+import RandomGuessing from './classes/randomGuessing'
+import DivideAndRandomOdd from './classes/divideAndRandomOdd'
+import DivideAndRandomEven from './classes/divideAndRandomEven'
 
-const guessYourNumber = (debug = false) => {
-  const config = {low: 1, high: 10000000, tries: 40};
-  const divideAndConquerResults = [], randomGuessingResults = [], divideAndRandomOddResults = [],  divideAndRandomEvenResults = [];
+export declare interface configInterface {
+  high: number,
+  low: number,
+  tries: number
+  targetNumber: number
+}
+
+declare interface resultInterface {
+  sumOfTries: number;
+  sumOfTime: number;
+  timer: number,
+  result: {
+    status: string,
+    tries: number}
+}
+
+const guessYourNumber = (debug: true | false = false): void => {
+  const config: configInterface = {low: 1, high: 10000000, tries: 40, targetNumber: NaN};
+  const divideAndConquerResults: resultInterface[] = [];
+  const randomGuessingResults: resultInterface[] = [];
+  const divideAndRandomOddResults: resultInterface[] = [];
+  const divideAndRandomEvenResults: resultInterface[] = [];
   let divideAndRandomOddStartTime, divideAndRandomEvenStartTime, divideStartTime, randomStartTime;
 
-  for (let i = 0; i < 150; i++){
+  for (let i: number = 0; i < 150; i++){
     config.targetNumber = Math.floor(Math.random() * (config.high + 1));
     console.log(`Loop ${i} => Number to Guess = ${config.targetNumber}`);
 
     randomStartTime = Date.now();
-    const randomGuessingCycle =  new RandomGuessing(config).start();
-    if (debug){console.log(`Loop ${i} - randomGuessing`)}
+    const randomGuessingCycle: {status: string, tries: number} =  new RandomGuessing(config).start();
+    if (debug) console.log(`Loop ${i} - randomGuessing`);
     randomGuessingResults.push({
       result: randomGuessingCycle,
       timer: Date.now() - randomStartTime,
@@ -27,8 +46,8 @@ const guessYourNumber = (debug = false) => {
     });
 
     divideAndRandomOddStartTime = Date.now();
-    const divideAndRandomOddCycle =  new DivideAndRandomOdd(config).start();
-    if(debug){console.log(`Loop ${i} - divideAndRandomOdd`);}
+    const divideAndRandomOddCycle: {status: string, tries: number} =  new DivideAndRandomOdd(config).start();
+    if(debug) console.log(`Loop ${i} - divideAndRandomOdd`);
     divideAndRandomOddResults.push({
       result: divideAndRandomOddCycle,
       timer: Date.now() - divideAndRandomOddStartTime,
@@ -41,8 +60,8 @@ const guessYourNumber = (debug = false) => {
     });
 
     divideAndRandomEvenStartTime = Date.now();
-    const divideAndRandomEvenCycle =  new DivideAndRandomEven(config).start();
-    if(debug){console.log(`Loop ${i} - divideAndRandomEven`);}
+    const divideAndRandomEvenCycle: {status: string, tries: number} =  new DivideAndRandomEven(config).start();
+    if(debug) console.log(`Loop ${i} - divideAndRandomEven`);
     divideAndRandomEvenResults.push({
       result: divideAndRandomEvenCycle,
       timer: Date.now() - divideAndRandomEvenStartTime,
@@ -55,8 +74,8 @@ const guessYourNumber = (debug = false) => {
     });
 
     divideStartTime = Date.now();
-    const divideAndConquerCycle =  new DivideAndConquer(config).start();
-    if(debug){console.log(`Loop ${i} - divideAndConquer`);}
+    const divideAndConquerCycle: {status: string, tries: number} =  new DivideAndConquer(config).start();
+    if(debug) console.log(`Loop ${i} - divideAndConquer`);
     divideAndConquerResults.push({
       result: divideAndConquerCycle,
       timer: Date.now() - divideStartTime,
@@ -91,7 +110,7 @@ const guessYourNumber = (debug = false) => {
 
   console.table({
     'set': 'Random Guessing',
-    'Wins': `${randomGuessingResults.filter((randomGuess) => randomGuess.result.status === 'win').length} / ${randomGuessingResults.length}`,
+    'Wins': `${randomGuessingResults.filter((randomGuess: resultInterface): boolean => randomGuess.result.status === 'win').length} / ${randomGuessingResults.length}`,
     'Total Guesses': randomGuessingResults[randomGuessingResults.length - 1].sumOfTries,
     'Avg Guesses': (randomGuessingResults[randomGuessingResults.length - 1].sumOfTries / randomGuessingResults.length),
     'Avg Run Time': (randomGuessingResults[randomGuessingResults.length - 1].sumOfTime / randomGuessingResults.length),
@@ -99,7 +118,7 @@ const guessYourNumber = (debug = false) => {
 
   console.table({
     'Set': 'Odd Divide And Random',
-    'Wins': `${divideAndRandomOddResults.filter((divideAndRandomGuess) => divideAndRandomGuess.result.status === 'win').length} / ${divideAndRandomOddResults.length}`,
+    'Wins': `${divideAndRandomOddResults.filter((divideAndRandomGuess: resultInterface): boolean => divideAndRandomGuess.result.status === 'win').length} / ${divideAndRandomOddResults.length}`,
     'Total Guesses': divideAndRandomOddResults[divideAndRandomOddResults.length - 1].sumOfTries,
     'Avg Guesses': (divideAndRandomOddResults[divideAndRandomOddResults.length - 1].sumOfTries / divideAndRandomOddResults.length),
     'Avg Run Time': (divideAndRandomOddResults[divideAndRandomOddResults.length - 1].sumOfTime / divideAndRandomOddResults.length),
@@ -107,7 +126,7 @@ const guessYourNumber = (debug = false) => {
 
   console.table({
     'Set': 'Even Divide And Random',
-    'Wins': `${divideAndRandomEvenResults.filter((divideAndRandomGuess) => divideAndRandomGuess.result.status === 'win').length} / ${divideAndRandomEvenResults.length}`,
+    'Wins': `${divideAndRandomEvenResults.filter((divideAndRandomGuess: resultInterface): boolean => divideAndRandomGuess.result.status === 'win').length} / ${divideAndRandomEvenResults.length}`,
     'Total Guesses': divideAndRandomEvenResults[divideAndRandomEvenResults.length - 1].sumOfTries,
     'Avg Guesses': (divideAndRandomEvenResults[divideAndRandomEvenResults.length - 1].sumOfTries / divideAndRandomEvenResults.length),
     'Avg Run Time': (divideAndRandomEvenResults[divideAndRandomEvenResults.length - 1].sumOfTime / divideAndRandomEvenResults.length),
@@ -115,7 +134,7 @@ const guessYourNumber = (debug = false) => {
 
   console.table({
     'set': 'Divide And Conquer',
-    'Wins': `${divideAndConquerResults.filter((divideAndConquerGuess) => divideAndConquerGuess.result.status === 'win').length} / ${divideAndConquerResults.length}`,
+    'Wins': `${divideAndConquerResults.filter((divideAndConquerGuess: resultInterface): boolean => divideAndConquerGuess.result.status === 'win').length} / ${divideAndConquerResults.length}`,
     'Total Guesses': divideAndConquerResults[divideAndConquerResults.length - 1].sumOfTries,
     'Avg Guesses': (divideAndConquerResults[divideAndConquerResults.length - 1].sumOfTries / divideAndConquerResults.length),
     'Avg Run Time': (divideAndConquerResults[divideAndConquerResults.length - 1].sumOfTime / divideAndConquerResults.length),

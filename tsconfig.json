@@ -1,0 +1,27 @@
+{
+  "compilerOptions": {
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "module": "commonjs",
+    "target":  "ES2020",
+    "noImplicitAny": true,
+    "preserveConstEnums": true,
+    "sourceMap": true,
+    "strictFunctionTypes": true,
+    "strictBindCallApply": true,
+    "esModuleInterop": true,
+    "alwaysStrict": true,
+    "declaration": true,
+    "downlevelIteration": true,
+    "outDir": "./dist"
+  },
+  "files": [
+    "./src/range.ts",
+    "./src/classes/NumberGuesser.ts",
+    "./src/classes/randomGuessing.ts",
+    "./src/classes/divideAndRandomOdd.ts",
+    "./src/classes/divideAndRandomEven.ts",
+    "./src/classes/divideAndConquer.ts",
+    "./src/index.ts"
+  ]
+}

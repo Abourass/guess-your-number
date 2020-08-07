@@ -4,12 +4,15 @@
   "description": "A simple node app that attempts to guess a number of your choosing. Mainly a working ground for optimization",
   "main": "index.js",
   "scripts": {
-    "start": "node ./src/index.js"
+    "start": "node ./dist/index.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "inquirer": "^7.3.3"
+  },
+  "devDependencies": {
+    "@types/node": "^14.0.27"
   }
 }
